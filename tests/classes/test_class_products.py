@@ -1,4 +1,5 @@
 import pytest
+from _pytest.capture import CaptureFixture
 
 from src.classes.class_products import Product
 
@@ -22,6 +23,29 @@ def test_product(name: str, description: str, price: float, quantity: int, resul
     """
 
     assert type(Product(name, description, price, quantity)) == Product
+
+
+def test_setter_price(capsys: CaptureFixture[str], product_phone: Product) -> None:
+    """
+    Тестирование сеттера price
+    :param product_phone: Фикстура
+    :return: None
+    """
+    product_phone.price = -1
+    read_out = capsys.readouterr()
+    assert read_out.out == "Цена не должна быть нулевая или отрицательная\n"
+
+
+def test_new_product() -> None:
+    """
+    Тестирование создания нового продукта с помощью статического метода
+    :return: None
+    """
+    data_product = Product.new_product("Название продукта", "Описание", 100, 1)
+    assert data_product.name == "Название продукта"
+    assert data_product.description == "Описание"
+    assert data_product.price == 100
+    assert data_product.quantity == 1
 
 
 def test_product_init(product_phone: Product) -> None:
