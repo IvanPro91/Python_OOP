@@ -1,0 +1,60 @@
+import pytest
+from _pytest.capture import CaptureFixture
+
+from src.classes.class_products import Product
+
+
+@pytest.mark.parametrize(
+    "name, description, price, quantity, result",
+    [
+        ("Тест 1", "Описание 1", 10, 12, Product),
+        ("Тест 2", "Описание 2", 40, 31, Product),
+    ],
+)
+def test_product(name: str, description: str, price: float, quantity: int, result: Product) -> None:
+    """
+    Тестирование класса Product по заготовленным данным
+    :param name: Название
+    :param description: Описание
+    :param price: Цена
+    :param quantity: Остаток
+    :param result: Ожидание от теста
+    :return: None
+    """
+
+    assert type(Product(name, description, price, quantity)) == Product
+
+
+def test_setter_price(capsys: CaptureFixture[str], product_phone: Product) -> None:
+    """
+    Тестирование сеттера price
+    :param product_phone: Фикстура
+    :return: None
+    """
+    product_phone.price = -1
+    read_out = capsys.readouterr()
+    assert read_out.out == "Цена не должна быть нулевая или отрицательная\n"
+
+
+def test_new_product() -> None:
+    """
+    Тестирование создания нового продукта с помощью статического метода
+    :return: None
+    """
+    data_product = Product.new_product("Название продукта", "Описание", 100, 1)
+    assert data_product.name == "Название продукта"
+    assert data_product.description == "Описание"
+    assert data_product.price == 100
+    assert data_product.quantity == 1
+
+
+def test_product_init(product_phone: Product) -> None:
+    """
+    Тестирование Product при помощи фикстуры
+    :param product_phone: Фикстура
+    :return: None
+    """
+    assert product_phone.name == "Iphone 15"
+    assert product_phone.description == "512GB, Gray space"
+    assert product_phone.price == 210000.0
+    assert product_phone.quantity == 8
