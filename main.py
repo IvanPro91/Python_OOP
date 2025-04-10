@@ -1,42 +1,18 @@
-from config import ROOT_DIR
 from src.classes.class_category import Category
+from src.classes.class_iter_item import IterItem
 from src.classes.class_products import Product
-from src.read_products_file import read_products
 
 if __name__ == "__main__":
-    # Реализация чтения данных с файла Json и добавление классов в переменную
-    categories: list[Category] = []
-    products = read_products(ROOT_DIR + "/data/products.json")
-    for product in products:
-        category = Category(
-            name=product.get("name", "Не указано"),
-            description=product.get("description", "Не указано"),
-            products=[
-                Product(product["name"], product["description"], product["price"], product["quantity"])
-                for product in product.get("products", [])
-            ],
-        )
-        categories.append(category)
-    print(categories)
-
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
-
-    print(product1.name)
-    print(product1.description)
-    print(product1.price)
-    print(product1.quantity)
-
-    print(product2.name)
-    print(product2.description)
-    print(product2.price)
-    print(product2.quantity)
-
-    print(product3.name)
-    print(product3.description)
-    print(product3.price)
-    print(product3.quantity)
+    product2 = Product("Apple iPhone 14 Pro", "128GB, Золотой цвет, 48MP камера", 120000.0, 10)
+    product3 = Product("Google Pixel 7 Pro", "128GB, Белый цвет, 50MP камера", 90000.0, 7)
+    product4 = Product("OnePlus 11", "256GB, Синий цвет, 48MP камера", 85000.0, 8)
+    product5 = Product("Xiaomi Mi 12", "256GB, Черный цвет, 108MP камера", 75000.0, 12)
+    product6 = Product("Sony Xperia 1 IV", "256GB, Черный цвет, 12MP камера", 110000.0, 6)
+    product7 = Product("Huawei P50 Pro", "256GB, Зеленый цвет, 50MP камера", 95000.0, 9)
+    product8 = Product("LG G8 ThinQ", "128GB, Синий цвет, 48MP камера", 60000.0, 15)
+    product9 = Product("Motorola Edge 30", "128GB, Красный цвет, 108MP камера", 55000.0, 11)
+    product10 = Product("Nokia G50", "128GB, Черный цвет, 50MP камера", 30000.0, 20)
 
     category1 = Category(
         "Смартфоны",
@@ -44,23 +20,18 @@ if __name__ == "__main__":
         [product1, product2, product3],
     )
 
-    print(category1.name == "Смартфоны")
-    print(category1.description)
-    print(len(category1.products))
-    print(category1.category_count)
-    print(category1.product_count)
+    category2 = Category("Ноутбуки", "Ноутбуки для работы, учебы и развлечений", [product4, product5, product6])
 
-    product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
-    category2 = Category(
-        "Телевизоры",
-        "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
-        [product4],
-    )
+    category3 = Category("Планшеты", "Планшеты для работы, учебы и развлечений", [product7, product8, product9])
 
-    print(category2.name)
-    print(category2.description)
-    print(len(category2.products))
-    print(category2.products)
+    category4 = Category("Умные часы", "Умные часы для отслеживания здоровья и активности", [product10])
 
-    print(Category.category_count)
-    print(Category.product_count)
+    iter_item = IterItem(category1)
+    for item in iter_item:
+        print(item)
+
+    iter_item = IterItem(category2)
+    print(next(iter_item))
+    print(next(iter_item))
+    print(next(iter_item))
+    print(next(iter_item))
