@@ -1,7 +1,8 @@
 import pytest
 from _pytest.capture import CaptureFixture
 
-from src.classes.class_products import Product
+from src.classes.class_category import Category
+from src.classes.class_products import LawnGrass, Product, Smartphone
 
 
 @pytest.mark.parametrize(
@@ -68,3 +69,24 @@ def test_add_product() -> None:
     product2 = Product("Apple iPhone 14 Pro", "128GB, Золотой цвет, 48MP камера", 120000.0, 10)
     res = product1 + product2
     assert res == 2100000.0
+
+
+def test_raise_add_product() -> None:
+    """
+    Тестирование ошибок raise для метода сложения
+    """
+    smartphone1 = Smartphone(
+        "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5, "S23 Ultra", 256, "Серый"
+    )
+    grass1 = LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+    with pytest.raises(TypeError):
+        smartphone1 + grass1
+
+
+def test_other_add_product() -> None:
+    """
+    Тестирование ошибок на добавление других товаров
+    """
+    category_smartphones = Category("Смартфоны", "Высокотехнологичные смартфоны", [])
+    with pytest.raises(ValueError):
+        category_smartphones.add_product("Not a product")

@@ -17,9 +17,12 @@ class Category:
         self.category_count += 1
 
     @classmethod
-    def add_product(cls, product: Product) -> None:
+    def add_product(cls, product: Any) -> None:
         """Добавление нового продукта"""
         # Проверить продукт на цену и произвести поиск
+        if not issubclass(product.__class__, Product):
+            raise ValueError("Класс не является наследником основного класса.")
+
         quantity, price = cls.chk_product(product)
         product.quantity = quantity
         product.price = price
@@ -28,7 +31,7 @@ class Category:
         cls.product_count = product.quantity
 
     @classmethod
-    def chk_product(cls, product: Product) -> Any:
+    def chk_product(cls, product: Any) -> tuple[int, Any]:
         """Проверка добавляемых данных"""
         # Проверка на схожесть в имени IN
         quantity = 1
