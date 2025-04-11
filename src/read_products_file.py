@@ -10,7 +10,6 @@ file_formatter = logging.Formatter("%(asctime)s %(module)s %(levelname)s: %(mess
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
-
 def read_products(path: str) -> list:
     """
     Функция чтения данные json с данными по products и category
@@ -19,7 +18,7 @@ def read_products(path: str) -> list:
     """
     if len(path) > 0:
         try:
-            with open(path, mode="r", encoding="utf-8") as f:
+            with open(path, mode='r', encoding='utf-8') as f:
                 data = json.load(f)
             return list(data)
         except FileNotFoundError:
