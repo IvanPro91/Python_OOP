@@ -1,10 +1,33 @@
+from abc import ABC, abstractmethod
 from typing import Any
 
 
-class Product:
-    """Шаблон класса Product"""
+class MixinLog:
+    """
+    Миксин класс который при инициализации показывает в консоль имя класса и его аттрибуты
+    """
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
+        class_name = self.__class__.__name__
+        print(f"Создан объект класса {class_name} с параметрами: {name=} {description=} {price=} {quantity=}")
+
+
+class BaseProduct(ABC):
+    """
+    Абстрактный класс указывает на то что абстрактные методы должны реализоваться во всех наследованных классах
+    """
+
+    @abstractmethod
+    def new_product(self, name: str, description: str, price: float, quantity: int) -> Any: ...
+
+
+class Product(BaseProduct, MixinLog):
+    """
+    Шаблон класса Product
+    """
+
+    def __init__(self, name: str, description: str, price: float, quantity: int):
+        MixinLog.__init__(self, name, description, price, quantity)
         self.name = name
         self.description = description
         self.__price = price
