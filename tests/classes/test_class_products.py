@@ -34,7 +34,11 @@ def test_setter_price(capsys: CaptureFixture[str], product_phone: Product) -> No
     """
     product_phone.price = -1
     read_out = capsys.readouterr()
-    assert read_out.out == "Цена не должна быть нулевая или отрицательная\n"
+    assert read_out.out == (
+        "Создан объект класса Product с параметрами: name='Iphone 15' "
+        "description='512GB, Gray space' price=210000.0 quantity=8\n"
+        "Цена не должна быть нулевая или отрицательная\n"
+    )
 
 
 def test_new_product() -> None:
