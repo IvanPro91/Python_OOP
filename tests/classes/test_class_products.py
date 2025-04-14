@@ -53,6 +53,14 @@ def test_new_product() -> None:
     assert data_product.quantity == 1
 
 
+def test_price_zero_count() -> None:
+    """
+    Тестирование на инициализацию продукта с нулевым остатком
+    """
+    with pytest.raises(ValueError):
+        Product("Продукт1", "Описание продукта", 1200, 0)
+
+
 def test_product_init(product_phone: Product) -> None:
     """
     Тестирование Product при помощи фикстуры

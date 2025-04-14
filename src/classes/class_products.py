@@ -27,6 +27,8 @@ class Product(BaseProduct, MixinLog):
     """
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
+        if quantity <= 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         MixinLog.__init__(self, name, description, price, quantity)
         self.name = name
         self.description = description
