@@ -79,6 +79,15 @@ def test_str_category(fix_category: Category) -> None:
     assert isinstance(str(fix_category), str)
 
 
+def test_middle_price_category() -> None:
+    """
+    Тестирование средней цены
+    """
+    category = Category("Категория 1", "Описание 1", [])
+    middle_price = category.middle_price()
+    assert middle_price == 0
+
+
 def test_order_abs_category(fix_category: Category) -> None:
     """
     Тестирование переопределения метода str

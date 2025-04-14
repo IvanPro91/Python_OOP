@@ -63,6 +63,16 @@ class Category(BaseCategory):
 
         return quantity, price
 
+    def middle_price(self) -> float:
+        """Среднее значение цены"""
+        price = sum([count.price for count in self.__products])
+        try:
+            middle = price / len(self.__products)
+            return middle
+        except ZeroDivisionError:
+            pass
+        return 0
+
     @property
     def products(self) -> list:
         """Getter, который возвращает информацию по продуктам"""
@@ -70,8 +80,8 @@ class Category(BaseCategory):
 
     def __str__(self) -> str:
         """Переопределение магического метода str"""
-        all_cout = sum([count.quantity for count in self.__products])
-        return f"{self.name}, количество продуктов: {all_cout} шт."
+
+        return f"{self.name}, количество продуктов: {self.product_count} шт."
 
 
 class Order(BaseCategory):
